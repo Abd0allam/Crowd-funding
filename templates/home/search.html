@@ -1,0 +1,35 @@
+{%extends 'parent.html' %}
+
+{%block content%}
+<header>
+    <div class="container bg-secondary my-4 p-4" style="color:white;border-radius: 10px;">
+        <h1>Search Result</h1>
+        <div class="container bg-dark my-4 p-4 " style="color:white;border-radius: 10px;">
+            <table class="table" style="width: 100%;" border="1">
+                <tr>
+                    <td>Project Title</td>
+                    <td>Details</td>
+                    <td>Target</td>
+                    <td>Rate</td>
+                    <td>Owner</td>
+                    <td>Category</td>
+                    <td>Show</td>
+                </tr>
+                {%for project in search_result%}
+                    <tr>
+                        <td>{{project.title}}</td>
+                        <td>{{project.details}}</td>
+                        <td>{{project.target}}</td>
+                        <td>{{project.total_rate}}</td>
+                        <td>{{project.owner_id}}</td>
+                        <td>{{project.category}}</td>
+                        <td>            <a class="btn btn-info text-dark  " style="margin-left:20%;" href="{%url 'displayProject' project.id %}">View</a>
+                        </td>
+                        
+                    </tr>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+</head>
+{%endblock%}

@@ -1,0 +1,200 @@
+{%extends 'parent.html' %}
+
+{%block content%}
+<div class="container bg-secondary p-4 my-4">
+    <div class=" container" style="display: flex;">
+        <h1>
+            Project: {{setProject.title}} 
+            
+        </h1>
+        <h1>{{req.session.didReport}}</h1>
+        {% if not reportState  %}
+            <form method="post" style="width: fit-content;margin-left: 65%;margin-top: 1%;">
+                {% csrf_token %}
+                <input type="hidden" name="report" value=1>
+                <button class="btn btn-primary" type="submit">Report</button>
+            </form>
+        {% endif %}
+        
+    </div>
+    <div class="container basic-project-info" style="background-color: white;padding: 10px;border-radius: 5px;padding: 25px; height: 500;">    
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            name : {{setProject.title}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            owner-project : {{setOwnerProject}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            details : {{setProject.details}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            target : {{setProject.target}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            start-date : {{setProject.start_date}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            end-date : {{setProject.end_date}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            total-rate : {{setProject.total_rate}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            report-counter : {{setProject.report_count}} 
+        </p>
+        <p class="table" style="background-color: rgb(174, 192, 195);border: 1px solid gray; padding: 10px;">
+            Total Donate : {{setDonation}}
+            
+        </p>
+        <!-- set donate for project -->
+        <form method="post">
+            
+                  {%csrf_token%}
+                  <div class="mb-3">
+                    <label for="donate" class="form-label">Give Donate</label>
+                    <input type="number" name="donateUser" class="form-control" id="donate" >
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Donate</button>
+        </form>
+            
+            <br><br>
+            <div class="mb-3">
+                <!-- <input type="date" value="{{setOwnerProject.birth_date|date:'Y-m-d' }}"> -->
+                {% if not rateState  %}
+                    <h2>Rate the project {{rateState}}</h2>
+                    <form method="post">
+                        {%csrf_token%}
+                        <select name="rateValue" id="">
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                                <option value=6>6</option>
+                                <option value=7>7</option>
+                                <option value=8>8</option>
+                                <option value=9>9</option>
+                                <option value=10>10</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Set Rate</button>
+                    </form>
+                {% endif %}
+            </div>
+            
+        
+    </div>
+    <!-- comment section -->
+    <div class="container " style="margin-top: 20px;background-color: white;padding: 10px;border-radius: 5px;padding: 25px; ">
+        <h2>Comments</h2>
+        <div class="" style="border: 1px solid gainsboro; padding: 20px;">
+            {%for comment in setComment%}
+                <hr>
+                <div class="comment-div" style="display: inline;">
+                    <span class="px-4">{{comment.user_id}} </span>
+                    {% if  comment.report_comment  %}
+                        <span class="btn  bg-danger text-light">reported</span>
+                    {% endif %}
+                    <!-- report coment -->
+                    {% if not comment.report_comment  %}
+                    <form method="post" style="width: fit-content;margin-left: 65%;margin-top: 0%;">
+                        {% csrf_token %}
+                        <input type="hidden" name="reportComment" value=1>
+                        <input type="hidden" name="reportCommentUser" value={{comment.user_id.id}}>
+
+                        <button class="btn btn-primary" type="submit">Report</button>
+                    </form>
+                    {% endif %}
+                </div>
+                <p class="px-4">{{comment.comment_body}}</p>
+                
+                <hr>
+            {%endfor%}
+
+            <form method="post">
+            
+                {%csrf_token%}
+                <div class="mb-3">
+                  <label for="comment" class="form-label">Comment</label>
+                  <input type="text" name="commentUser" class="form-control" id="comment" >
+                </div>
+                <button type="submit" class="btn btn-primary">Set Comment</button>
+            </form>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 20px;background-color: white;padding: 10px;border-radius: 5px;padding: 25px; ">
+        Project Images
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner w-100">
+              {%for image in images%} 
+    
+    
+              <div class="carousel-item active">
+                <img
+                style="height:250px"
+                  src="{{image.picture.url}}"
+                  alt="My Image"
+                  class="d-block w-100 "
+                />
+              </div>
+              {%endfor%}
+              
+    
+
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+    <div class="container" style="margin-top: 20px;background-color: white;padding: 10px;border-radius: 5px;padding: 25px; ">
+        {% if similar_projects %}
+        4 project with same tags
+        
+        <div class="container bg-dark my-4 p-4 " style="color:white;border-radius: 10px;">
+            <table class="table" style="width: 100%;" border="1">
+                <tr>
+                    <td>Project Title</td>
+                    <td>Details</td>
+                    <td>Target</td>
+                    <td>Rate</td>
+                    <td>Owner</td>
+                    <td>Show</td>
+                </tr>
+                {%for project in similar_projects%}
+                    <tr>
+                        <td>{{project.title}}</td>
+                        <td>{{project.details}}</td>
+                        <td>{{project.target}}</td>
+                        <td>{{project.total_rate}}</td>
+                        <td>{{project.owner_id}}</td>
+                        <td>
+                        <a class="btn btn-info text-dark " href="{%url 'displayProject' project.id %}">View</a>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+        </div>
+        {% else%}
+
+        {% endif %}
+    </div>
+</div>
+
+
+{%endblock%}

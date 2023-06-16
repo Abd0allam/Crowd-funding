@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.0-dist/css/bootstrap.min.css' %}">
+    <title>Crowd Fund</title>
+</head>
+<body style="background-color: rgb(165, 164, 164);">
+    <header class="" style="background-color: rgb(58, 58, 59);color: white;">
+        <!-- this is navBar -->
+        <div class="container ">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <a class="navbar-brand text-light mx-5" href="{%url 'myHome'  %}">Home</a>
+               
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link text-light mx-5" href="{%url 'allprojects'  %}">Projects </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-light mx-5" href="{%url 'UserInfo'  %}">myProfile</a>
+                    </li>
+                    
+                    
+                  </ul>
+                  
+                </div>
+                {% if "username" in request.session %}
+                <a class="nav-link btn btn-info text-danger" 
+                  href="{%url 'Logout'  %}">
+                  Log Out
+                </a>
+                {% else %}
+                <a class="nav-link  nav-link btn btn-info text-primary mx-3" href="{%url 'Registeration'  %}">Register</a>
+
+                <a class="nav-link btn btn-info text-danger" 
+                  href="{%url 'Login'  %}">
+                  Log in
+                </a>
+                {% endif %}
+              </nav>    
+        </div>
+    </header>
+    <div class="container bg-secondary">
+        
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" name="first_name" class="form-control" id="first_name" aria-describedby="first_name_help" required>
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" name="last_name" class="form-control" id="last_name" aria-describedby="last_name_help" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" aria-describedby="email_help" required>
+            <div id="email_help" class="form-text text-danger">{% if email_err_msg %} {{ email_err_msg }} {%else%} {% endif %}</div>
+            <div id="email_help" class="form-text text-danger">{% if email_valid_err_msg %} {{ email_valid_err_msg }} {%else%} {% endif %}</div>
+            
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="password" required>
+        </div>
+        <div id="password_help_block" class="form-text text-danger">
+            {% if pass_err_msg %} {{ pass_err_msg }} {%else%}{% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="cpassword" class="form-label">Confirm Password</label>
+            <input type="password" name="cpassword" class="form-control" id="cpassword" required>
+        </div>
+        <div id="password_help_block" class="form-text text-danger">
+            {% if pass_err_msg %} {{ pass_err_msg }} {%else%}{% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" name="phone" class="form-control" id="phone" required>
+            <div id="email_help" class="form-text text-danger">{% if phone_err_msg %} {{ phone_err_msg }} {%else%} {% endif %}</div>
+    
+        </div>
+        <div class="mb-3">
+            <label for="profile_image" class="form-label">Profile Image</label>
+            <input type="file" name="image" class="form-control" id="profile_image" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+     
+
+    <script src="{% static 'bootstrap-5.3.0-dist/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
+
+
+

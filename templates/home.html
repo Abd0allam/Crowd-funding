@@ -1,0 +1,123 @@
+{%extends 'parent.html' %}
+
+    {%block content%}
+    <!-- <div class="container bg-secondary">
+      <h1>this is search</h1>
+      <form class="d-flex" role="search" method="POST">
+        {% csrf_token %}
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div> -->
+    <br /><br /><br /><br />
+<div class="container bg-secondary my-4 p-4" style="color: white; border-radius: 10px">
+  <h1>The Top Rated Projects</h1>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {% for project in top_rated_projects %}
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for project in top_rated_projects %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="2000">
+            <h5>{{ project.title }}</h5>
+            <p>{{ project.details }}</p>
+            <ul>
+              <li><strong>Category:</strong> {{ project.category }}</li>
+              <li><strong>Owner:</strong> {{ project.owner_id }}</li>
+              <li><strong>Target:</strong> {{ project.target }}</li>
+              <li><strong>Rate:</strong> {{ project.total_rate }}</li>
+            </ul>
+            <a class="btn btn-info text-dark  " style="margin-left:20%;" href="{%url 'displayProject' project.id %}">View</a>
+          </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+</div>
+    <br /><br /><br />
+    <div class="container bg-secondary p-4" style="border-radius: 10px;">
+      <h1>Pick Category</h1>
+      {%for category in allCategory%}
+          <a href="{% url 'category' category.name %}" class="btn btn-info text-dark">{{category.name}} category</a>         
+      {%endfor%}
+      
+    </div>
+
+    <br /><br /><br />
+    <div class="container bg-info my-4 p-4" style="color: white; border-radius: 10px">
+      <h1>the latest projects</h1>
+      <table width="100%" border="1" class="table">
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Date Created</th>
+          <th>Category</th>
+          <th>Owner</th>
+          <th>Target</th>
+          <th>Rate</th>
+          <th>Display</th>
+        </tr>
+        {%for project in latest_projects%}
+        <tr>
+          <td>{{project.id}}</td>
+          <td>{{project.title}}</td>
+          <td>{{project.created_at}}</td>
+          <td>{{project.category}}</td>
+          <td>{{project.owner_id}}</td>
+          <td>{{project.target}}</td>
+          <td>{{project.total_rate}}</td>
+          <td>
+            <a class="btn btn-info text-dark " href="{%url 'displayProject' project.id %}">View</a>
+          </td>
+        </tr>
+        {%endfor%}
+      </table>
+    </div>
+    <br /><br /><br /><br />
+    <div class="container bg-secondary">
+      <h1>this is top 5 project entered by admin</h1>
+      <table width="100%" border="1" class="table">
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Date Created</th>
+          <th>Category</th>
+          <th>Owner</th>
+          <th>Target</th>
+          <th>Rate</th>
+          <th>Display</th>
+        </tr>
+        {%for project in admin_projects_selected%}
+        <tr>
+          <td>{{project.id}}</td>
+          <td>{{project.title}}</td>
+          <td>{{project.created_at}}</td>
+          <td>{{project.category}}</td>
+          <td>{{project.owner_id}}</td>
+          <td>{{project.target}}</td>
+          <td>{{project.total_rate}}</td>
+          <td>
+            <a href="#" class="btn btn-info"> View</a>
+          </td>
+        </tr>
+        {%endfor%}
+      </table>
+    </div>
+    {%endblock%}
+  

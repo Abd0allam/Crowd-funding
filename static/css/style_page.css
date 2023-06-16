@@ -1,0 +1,16 @@
+
+.imgedit1{
+    position: absolute;
+      top: 29px;
+    z-index: 10;
+}
+.imgedit{
+position: absolute;
+      right: 104px;
+    top: 100px;
+}
+
+.bt{
+--bs-btn-padding-x: 2px;
+    --bs-btn-padding-y: -1px;
+}

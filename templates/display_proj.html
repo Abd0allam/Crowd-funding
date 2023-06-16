@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap-5.3.0-dist/css/bootstrap.min.css' %}"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container bg-secondary">
+      <h1>this is header</h1>
+    </div>
+    <br /><br /><br /><br />
+
+    <br /><br /><br />
+    <div class="container bg-info my-4 p-4" style="color: white; border-radius: 10px">
+      <h1>Pick Category</h1>
+    </div>
+    <br /><br /><br />
+    <div class="container bg-info my-4 p-4" style="color: white; border-radius: 10px">
+      {%if random_proj %}
+      <h1>Projects with same tags</h1>
+      <table width="100%" border="1" class="table">
+        <tr>
+          <th>Title</th>
+          <th>Date Created</th>
+          <th>Category</th>
+          <th>Owner</th>
+          <th>Target</th>
+          <th>Rate</th>
+          <th>Display</th>
+        </tr>
+        {%for project in random_proj%}
+        <tr>
+          <td>{{project.title}}</td>
+          <td>{{project.created_at}}</td>
+          <td>{{project.category}}</td>
+          <td>{{project.owner_id}}</td>
+          <td>{{project.target}}</td>
+          <td>{{project.total_rate}}</td>
+          <td>
+            <a href="#" class="btn btn-info"> View</a>
+          </td>
+        </tr>
+        {%endfor%}
+      </table>
+      {%else%}
+      
+      {%endif%}
+
+    </div>
+    <br /><br /><br /><br />
+    <div class="container bg-secondary">
+      <h1>this is top 5 project entered by admin</h1>
+    </div>
+
+    <script src="{% static 'bootstrap-5.3.0-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.3.0-dist/js/code.jquery.com_jquery-3.7.0.min.js' %}"></script>
+
+  </body>
+</html>

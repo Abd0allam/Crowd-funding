@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center mb-4">Register</h2>
+        <form method="post" enctype="multipart/form-data" class="form-horizontal">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.first_name.id_for_label }}">First Name:</label>
+            <div class="col-sm-9">
+              {{ form.first_name }}
+              {% if form.errors.first_name %}
+                <div class="text-danger">{{ form.errors.first_name }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.last_name.id_for_label }}">Last Name:</label>
+            <div class="col-sm-9">
+              {{ form.last_name }}
+              {% if form.errors.last_name %}
+                <div class="text-danger">{{ form.errors.last_name }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.email.id_for_label }}">Email:</label>
+            <div class="col-sm-9">
+              {{ form.email }}
+              {% if form.errors.email %}
+                <div class="text-danger">{{ form.errors.email }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.password.id_for_label }}">Password:</label>
+            <div class="col-sm-9">
+              {{ form.password }}
+              {% if form.errors.password %}
+                <div class="text-danger">{{ form.errors.password }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.confirm_password.id_for_label }}">Confirm Password:</label>
+            <div class="col-sm-9">
+              {{ form.confirm_password }}
+              {% if form.errors.confirm_password %}
+                <div class="text-danger">{{ form.errors.password }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
+            <div class="col-sm-9">
+              {{ form.phone_number }}
+              {% if form.errors.phone_number %}
+                <div class="text-danger">{{ form.errors.phone_number }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.image.id_for_label }}">Image:</label>
+            <div class="col-sm-9">
+              {{ form.image }}
+              {% if form.errors.image %}
+                <div class="text-danger">{{ form.errors.image }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.birth_date.id_for_label }}">Date of Birth:</label>
+            <div class="col-sm-9">
+              {{ form.birth_date }}
+              {% if form.errors.birth_date %}
+                <div class="text-danger">{{ form.errors.birth_date }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.facebook_profile.id_for_label }}">Facebook Profile:</label>
+            <div class="col-sm-9">
+              {{ form.facebook_profile }}
+              {% if form.errors.facebook_profile %}
+                <div class="text-danger">{{ form.errors.facebook_profile }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="{{ form.country.id_for_label }}">Country:</label>
+            <div class="col-sm-9">
+              {{ form.country }}
+              {% if form.errors.country %}
+                <div class="text-danger">{{ form.errors.country }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary px-5 py-2">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<style>
+  label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  input[type="text"], input[type="email"], input[type="password"], select {
+    border-radius: 0;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    height: 40px;
+    font-size: 1rem;
+    padding-left: 10px;
+    background-color: #fff;
+  }
+  
+  input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus {
+    outline: none;
+    border: 1px solid #007bff;
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+  
+  .form-horizontal {
+    background-color: #f2f2f2;
+    margin: 0 auto;
+    padding: 20px;
+    width: 50%;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+</style>
+{% endblock %}

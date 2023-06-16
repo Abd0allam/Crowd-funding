@@ -1,0 +1,127 @@
+{%extends 'layout.html'%}
+{%load static %}
+   {% block icon %}
+    <link rel="shortcut icon" type="image/png" href="{%static 'images/logos/info.png'%}" />
+      {% endblock%}
+ {% block title %}
+        User Info
+      {% endblock%}
+          {%block body%}
+            <div class="card w-100">
+              <div class="card-body p-4">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                  <div class="mb-12 mb-sm-12 w-100">
+                    <form  method="post" class="card-title fw-semibold mt-4  " >
+                      {% csrf_token %}
+                        <h1 class="text-center">
+                    User Info
+                    <a href="{%url 'EditUser' %}">
+                      <span class=" btn btn-light bt imgedit1 ">
+                    <img src="{%static 'images/logos/edit.png' %}" alt=""  height="35" class="rounded-circle">
+                  </span></a>
+                    </h1>
+
+                  <div class="mb-3 w-50 ">
+                    <label  class="form-label">Your First Name</label>
+                    <input type="text" class="form-control"  value={{user.first_name}} name="name" aria-describedby="textHelp" disabled>
+                  </div>
+                      <div class="mb-3 w-50 ">
+                    <label  class="form-label">Your Sacand Name</label>
+                    <input type="text" class="form-control"  value={{user.last_name}} name="name" aria-describedby="textHelp" disabled>
+                  </div>
+                     <div class=" imgedit ">
+                        {%if user.image %}
+                          <img src="{{user.image.url}}" alt=""  height="190" class="rounded-circle">
+                          {%else%}
+                          <img src="{%static 'images/profile/user-1.jpg' %}" alt=""  height="190" class="rounded-circle">
+                          {%endif%}
+                        </div>
+
+                       <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" value={{user.password}}  name="password" aria-describedby="emailHelp" disabled>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Birth Date</label>
+                    <input type="date" class="form-control"  value="{{ user.birth_date|date:'Y-m-d' }}" name="birth_date" aria-describedby="emailHelp" disabled>
+                  </div>
+                        <div class="mb-3">
+                    <label  class="form-label"> Email</label>
+                    <input type="email" class="form-control" value={{user.email}}  name="email" aria-describedby="emailHelp" disabled>
+                  </div>
+                        <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" value={{user.phone_number}}  name="phone_number" aria-describedby="emailHelp" disabled>
+                  </div>
+                      <div class="mb-4">
+                    <label class="form-label">Facebook Profile</label>
+                    <input type="url" class="form-control" value={{user.facebook_profile}}  name="facebook_profile" aria-describedby="emailHelp" disabled>
+                  </div>
+                       <div class="mb-4">
+                    <label class="form-label">Country</label>
+                    <input type="text" class="form-control" value={{user.country}}  name="country" aria-describedby="emailHelp" disabled>
+                  </div>
+                         </form>
+                        <a href="{%url 'EditUser' %}">
+                            <button class="btn  btn-dark w-100 py-8 fs-4 mb-4 rounded-2">EDIT</button>
+                        </a>
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="d-flex">
+                  
+                  <h1>Your Projects </h1>
+                  <a class="btn btn-info text-dark  " style="margin-left:5%;padding: 1%;height: fit-content;" href="{%url 'createProject' %}">Create Project</a>
+                </div>
+
+                 <table width="100%" border="1" class="table">
+                  <tr>
+                    <th>Title</th>
+                    <th>Total Donations</th>
+                    <th>Category</th>
+                    <th>Owner</th>
+                    <th>Target</th>
+                    <th>Rate</th>
+                    <th>Display</th>
+                  </tr>
+                  {%for project in user_projects%}
+                  <tr>
+                    <td>{{project.title}}</td>
+                    <td>{{project.total_donations}}</td>
+                    <td>{{project.category}}</td>
+                    <td>{{project.owner_id}}</td>
+                    <td>{{project.target}}</td>
+                    <td>{{project.total_rate}}</td>
+                    <td>
+                      <a class="btn btn-info text-dark  " style="" href="{%url 'displayProject' project.id %}">View</a>
+                    </td>
+                  </tr>
+                  {%endfor%}
+                </table>
+               </div>
+              </div>
+              <div>
+                <h1>user_donations </h1>
+                <table width="100%" border="1" class="table">
+                 <tr>
+                   <th>Project</th>
+                   <th>Donation Amount</th>
+                   <th>Action</th>
+                   
+                 </tr>
+                 {%for donation in all_donations%}
+                 <tr>
+                   <td>{{donation.project}}</td>
+                   <td>{{donation.amount}}</td>
+                   <td>
+                    <a class="btn btn-info text-dark  " style="" href="{%url 'displayProject' donation.id %}">View</a>
+                  </td>
+                 </tr>
+                 {%endfor%}
+               </table>
+              </div>
+             </div>
+
+              {%endblock%}
